@@ -21,7 +21,7 @@ def crawler(target, retries=3):
 def get_products_sitemap(soup):
     if soup is None:
         return []
-
+    
     product_sitemaps = []
     for i in soup.select('sitemap'):
         if 'product-sitemap' in i.loc.text:
@@ -77,6 +77,13 @@ def get_product_info(product_address):
             'price': price,
             'status': 'موجود',
         }
+
+def comparison(address, dic):
+    sitemap_soup = crawler(f'{address}/sitemap_index.xml')
+    if sitemap_soup:
+        product_sitemaps = get_products_sitemap(sitemap_soup)
+        product_list = get_products_list(product_sitemaps)
+        
 
 # Test function:
 def test(address):
